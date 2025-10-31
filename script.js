@@ -17,6 +17,8 @@ import { GlitchPass } from './jsm/postprocessing/GlitchPass.js';
 
 import { KTX2Loader } from './jsm/loaders/KTX2Loader.js';
 
+import nipplejs from './jsm/libs/nipple.js';
+
 const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
 const clock = new THREE.Clock();
