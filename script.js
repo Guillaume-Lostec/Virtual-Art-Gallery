@@ -157,7 +157,9 @@ document.addEventListener( 'keyup', ( event ) => {
     keyStates[ event.code ] = false;
 } );
 container.addEventListener( 'mousedown', () => {
-    document.body.requestPointerLock();
+    if (!isMobile) {
+        document.body.requestPointerLock();
+    }
     mouseTime = performance.now();
 } );
 document.addEventListener( 'mouseup', () => {
