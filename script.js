@@ -150,27 +150,28 @@ const vector1 = new THREE.Vector3();
 const vector2 = new THREE.Vector3();
 const vector3 = new THREE.Vector3();
 
-document.addEventListener( 'keydown', ( event ) => {
-    keyStates[ event.code ] = true;
-} );
-document.addEventListener( 'keyup', ( event ) => {
-    keyStates[ event.code ] = false;
-} );
-container.addEventListener( 'mousedown', () => {
-    if (!isMobile) {
-        document.body.requestPointerLock();
-    }
-    mouseTime = performance.now();
-} );
-document.addEventListener( 'mouseup', () => {
-    if ( document.pointerLockElement !== null ) throwBall();
-} );
-document.body.addEventListener( 'mousemove', ( event ) => {
-    if ( document.pointerLockElement === document.body ) {
-        camera.rotation.y -= event.movementX / 500;
-        camera.rotation.x -= event.movementY / 500;
-    }
-} );
+if (!isMobile) {
+    document.addEventListener( 'keydown', ( event ) => {
+        keyStates[ event.code ] = true;
+    } );
+    document.addEventListener( 'keyup', ( event ) => {
+        keyStates[ event.code ] = false;
+    } );
+    container.addEventListener( 'mousedown', () => {
+        
+            document.body.requestPointerLock();
+        mouseTime = performance.now();
+    } );
+    document.addEventListener( 'mouseup', () => {
+        if ( document.pointerLockElement !== null ) throwBall();
+    } );
+    document.body.addEventListener( 'mousemove', ( event ) => {
+        if ( document.pointerLockElement === document.body ) {
+            camera.rotation.y -= event.movementX / 500;
+            camera.rotation.x -= event.movementY / 500;
+        }
+    } );
+}
 
 // === MOBILE CONTROLS ===
 if (isMobile) {
