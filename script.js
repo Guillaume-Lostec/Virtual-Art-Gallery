@@ -17,11 +17,13 @@ import { GlitchPass } from './jsm/postprocessing/GlitchPass.js';
 
 import { KTX2Loader } from './jsm/loaders/KTX2Loader.js';
 
+const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
 const clock = new THREE.Clock();
 
+// Scene setup
 const scene = new THREE.Scene();
 scene.background = new THREE.Color( 0x87ceeb ); // sky
-// scene.fog = new THREE.Fog( 0xff0000, 10, 100 );
 
 const camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.1, 1000 );
 camera.rotation.order = 'YXZ';
@@ -165,6 +167,86 @@ document.body.addEventListener( 'mousemove', ( event ) => {
         camera.rotation.x -= event.movementY / 500;
     }
 } );
+
+// === MOBILE CONTROLS ===
+if (isMobile) {
+    console.log("Mobile device detected");
+
+    const joystickContainer = document.getElementById('joystick-container');
+    joystickContainer.style.display = 'block';
+
+    let moveForward = 0;
+    let moveRight = 0;
+    let lookActive = false;
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    // Create joystick
+    const joystick = nipplejs.create({
+        zone: joystickContainer,
+        mode: 'static',
+        position: { left: '60px', bottom: '60px' },
+        color: 'white'
+    });
+
+    joystick.on('move', (evt, data) => {
+        const angle = data.angle ? data.angle.radian : 0;
+        const distance = data.distance || 0;
+        moveForward = Math.cos(angle) * (distance / 50);
+        moveRight = Math.sin(angle) * (distance / 50);
+    });
+
+    joystick.on('end', () => {
+        moveForward = 0;
+        moveRight = 0;
+    });
+
+    // Touch to look around
+    window.addEventListener('touchstart', (e) => {
+        if (e.touches.length === 1) {
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+            lookActive = true;
+        }
+    });
+
+    window.addEventListener('touchmove', (e) => {
+        if (!lookActive) return;
+        const touch = e.touches[0];
+        const deltaX = touch.clientX - touchStartX;
+        const deltaY = touch.clientY - touchStartY;
+
+        camera.rotation.y -= deltaX * 0.002;
+        camera.rotation.x -= deltaY * 0.002;
+        camera.rotation.x = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, camera.rotation.x));
+
+        touchStartX = touch.clientX;
+        touchStartY = touch.clientY;
+    });
+
+    window.addEventListener('touchend', (e) => {
+        lookActive = false;
+        // Tap to throw ball
+        if (e.changedTouches.length === 1 && e.touches.length === 0) {
+            if (typeof throwBall === 'function') throwBall();
+        }
+    });
+
+    // Replace keyboard controls for movement
+    const originalControls = controls;
+    controls = function (deltaTime) {
+        const speedDelta = deltaTime * (playerOnFloor ? 50 : 16);
+        playerVelocity.add(getForwardVector().multiplyScalar(moveForward * speedDelta));
+        playerVelocity.add(getSideVector().multiplyScalar(moveRight * speedDelta));
+        if (playerOnFloor && moveForward > 0.2) {
+            playerVelocity.y = 0; // prevent jitter
+        }
+    };
+
+    // Disable pointer lock since mobile has no mouse
+    container.removeEventListener('mousedown', () => {});
+}
+// === END MOBILE CONTROLS ===
 
 window.addEventListener( 'resize', onWindowResize );
 function onWindowResize() {
