@@ -20,9 +20,15 @@ import { KTX2Loader } from './jsm/loaders/KTX2Loader.js';
 const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
 if (isMobile) {
-    const container = document.getElementById('container');
-    container.style.display = 'none';  // hide your scene
+    // hide the loading screen
+    const loadingScreen = document.getElementById('loadingScreen');
+    if (loadingScreen) loadingScreen.style.display = 'none';
 
+    // hide your container
+    const container = document.getElementById('container');
+    if (container) container.style.display = 'none';
+
+    // show a fullscreen mobile message
     const mobileMsg = document.createElement('div');
     mobileMsg.style.position = 'fixed';
     mobileMsg.style.top = '0';
@@ -34,16 +40,16 @@ if (isMobile) {
     mobileMsg.style.fontFamily = 'monospace';
     mobileMsg.style.fontSize = '24px';
     mobileMsg.style.display = 'flex';
+    mobileMsg.style.flexDirection = 'column';
     mobileMsg.style.justifyContent = 'center';
     mobileMsg.style.alignItems = 'center';
     mobileMsg.style.textAlign = 'center';
     mobileMsg.innerText = "Sorry, this art gallery is not supported on mobile yet.\nPlease use a PC or laptop.";
     document.body.appendChild(mobileMsg);
 
-    // Stop further initialization
+    // stop further initialization
     throw new Error("Mobile not supported");
 }
-
 const clock = new THREE.Clock();
 
 const scene = new THREE.Scene();
