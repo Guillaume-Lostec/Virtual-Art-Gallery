@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guillaume Lostec — Paintings</title>
+
+<style>
+
+body {
+    margin: 0;
+    font-family: 'Times New Roman', Times, serif;
+    background: rgb(0, 0, 0);
+    color: white;
+}
+
+h1 {
+    margin: 0;
+}
+
+.hero {
+    text-align: center;
+    padding: 2px 20px;
+}
+
+.hero img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.section {
+    padding: 20px 20px;
+    max-width: 1100px;
+    margin: auto;
+}
+
+.gallery-preview {
+    text-align: center;
+}
+
+.gallery-preview img {
+    width: 100%;
+    max-width: 350px;
+    border-radius: 5px;
+}
+
+.button_oncard {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 12px 20px;
+    background: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    border-radius: 6px;
+}
+
+.button_offcard {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 12px 20px;
+    background: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    border-radius: 6px;
+}
+
+.paintings {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.card {
+    background: rgb(121, 121, 121);
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.card img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+footer {
+    text-align: center;
+    padding: 30px;
+    font-size: 14px;
+    color: #666;
+}
+
+footer a {
+    color: white;           /* text color */
+    text-decoration: none;  /* remove underline */
+}
+
+footer a:visited {
+    color: white;           /* keep same color after clicking */
+}
+
+footer a:hover {
+    opacity: 0.7;           /* subtle hover effect (optional) */
+}
+
+</style>
+</head>
+
+<body>
+
+<section class="hero">
+    <img src="ArtPicts/website_banner.jpg" alt="Painting">
+</section>
+
+<section class="section">
+    <h2>Available Paintings</h2>
+
+    <div class="paintings">
+
+        <div class="card">
+            <img src="ArtPicts/Listing_DarkHorseSynced.jpg">
+            <h3>Dark Horse</h3>
+            <p>Oil on canvas — 24x30 in</p>
+            <p>$475</p>
+            <a class="button_oncard" href="https://www.etsy.com/listing/4458526971/dark-horse">Buy on Etsy</a>
+        </div>
+
+        <div class="card">
+            <img src="ArtPicts/Listing_WomanLifeFreedom.jpg">
+            <h3>Woman Life Freedom</h3>
+            <p>Oil on canvas — 20x16 in</p>
+            <p>$600</p>
+            <a class="button_oncard" href="https://www.etsy.com/listing/4458531681/woman-life-freedom">Buy on Etsy</a>
+        </div>
+
+        <div class="card">
+            <img src="ArtPicts/Listing_Persona.jpg">
+            <h3>Persona</h3>
+            <p>Oil on canvas paper — 12x7.5 in</p>
+            <p>$175</p>
+            <a class="button_oncard" href="https://www.etsy.com/listing/4394970767/persona">Buy on Etsy</a>
+        </div>
+
+        <div class="card">
+            <img src="ArtPicts/Listing_Impulse.jpg">
+            <h3>Impusle</h3>
+            <p>Oil on canvas paper — 7x7 in</p>
+            <p>$150</p>
+            <a class="button_oncard" href="https://www.etsy.com/listing/4394851004/impulse">Buy on Etsy</a>
+        </div>
+
+    </div>
+</section>
+
+<section class="section gallery-preview">
+    <img src="gallery_thumbnail.jpg" alt="Virtual gallery">
+    <br>
+    <a class="button_offcard" href="gallery.html">Enter my Virtual Gallery</a>
+</section>
+
+<footer>
+    <a href="https://instagram.com/helm.cetsol" target="_blank">
+        Follow me on Instagram
+    </a>
+</footer>
+</body>
+</html>
